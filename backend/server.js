@@ -44,7 +44,7 @@ app.use(cors({
     credentials: true
 }));
 const PORT = process.env.PORT || 4000;
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/quickrent';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://QuickRent:QuickRent123@cluster0.i0u9yrv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
@@ -580,7 +580,7 @@ app.put("/api/bookings/:id/reject", auth, async (req, res) => {
 
 
 // === START SERVER ===
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('MongoDB connected');
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
