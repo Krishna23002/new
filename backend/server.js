@@ -16,7 +16,7 @@ app.use(express.json());
 const allowedOrigins = [
     'http://127.0.0.1:5501',
     'http://localhost:5500',
-    'https://your-frontend-domain.com'  // for production
+    'https://quickrents.netlify.app'  // for production
 ];
 
 // serve uploaded images
@@ -591,6 +591,7 @@ mongoose.connect(MONGO_URI)
         console.error('MongoDB connection error:', err);
         process.exit(1);
     });
+
 
 
 
