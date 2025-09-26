@@ -34,14 +34,16 @@ const upload = multer({ storage });
 
 
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = "CORS policy: Not allowed by CORS for origin " + origin;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
 }));
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://QuickRent:QuickRent123@cluster0.i0u9yrv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -589,5 +591,6 @@ mongoose.connect(MONGO_URI)
         console.error('MongoDB connection error:', err);
         process.exit(1);
     });
+
 
 
